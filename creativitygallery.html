@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .main {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .img-box {
+            width: 300px;
+            margin: 10px;
+            transition: transform 0.5s;
+            cursor: pointer;
+        }
+        .img-box img {
+            width: 100%;
+            display: block;
+        }
+        .img-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .window {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            background: rgba(0, 0, 0, 0.85);
+            transition: opacity 0.5s ease-in-out;
+        }
+        .window.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .window img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        @media (max-width: 1100px) {
+            .window img {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+        <div class="img-box" data-value="creativity1">
+            <img src="images/creativity1.jpg" alt="Creativity 1">
+        </div>
+        <div class="img-box" data-value="creativity2">
+            <img src="images/creativity2.jpg" alt="Creativity 2">
+        </div>
+        <div class="img-box" data-value="creativity3">
+            <img src="images/creativity3.jpg" alt="Creativity 3">
+        </div>
+        <div class="img-box" data-value="creativity4">
+            <img src="images/creativity4.jpg" alt="Creativity 4">
+        </div>
+        <div class="img-box" data-value="creativity5">
+            <img src="images/creativity5.jpg" alt="Creativity 5">
+        </div>
+        <div class="img-box" data-value="creativity6">
+            <img src="images/creativity6.jpg" alt="Creativity 6">
+        </div>
+       
+    </div>
+
+    <div class="window">
+        <img src="" alt="Expanded Image" class="full-img">
+    </div>
+
+<script>
+    const imgBoxes = document.querySelectorAll(".img-box");
+    const win = document.querySelector(".window");
+    const fullImg = document.querySelector(".full-img");
+
+    imgBoxes.forEach(imgBox => {
+        imgBox.addEventListener("click", () => {
+            const imgName = imgBox.getAttribute("data-value");
+            win.classList.add("open");
+            fullImg.src = `images/${imgName}.jpg`;
+        });
+    });
+
+    win.addEventListener("click", (e) => {
+        if (e.target.classList.contains("window")) {
+            win.classList.remove("open");
+        }
+    });
+</script>
+
+</body>
+</html>
